@@ -39,15 +39,6 @@ return {
         local client = vim.lsp.get_client_by_id(client_id)
         local bufnr = args.buf
 
-        -- Dirty hack to force eslint-lsp to run EslintFixAll
-        if client.name == 'eslint' then
-          vim.api.nvim_create_autocmd('BufWritePre', {
-            buffer = bufnr,
-            command = "EslintFixAll",
-          })
-          return
-        end
-
         -- Only attach to clients that support document formatting
         if not client.server_capabilities.documentFormattingProvider then
           return
